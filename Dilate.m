@@ -19,18 +19,18 @@ function [ output_image ] = Dilate( input_image,cycles)
                     if j<n&&input_image(i,j+1)==0
                         input_image(i,j+1)=2;
                     end
-                    if i>1&&j>1&&input_image(i-1,j-1)==0
-                        input_image(i-1,j-1)=2;
-                    end
-                    if i<m&&j>1&&input_image(i+1,j-1)==0
-                        input_image(i+1,j-1)=2;
-                    end
-                    if i>1&&j<n&&input_image(i-1,j+1)==0
-                        input_image(i-1,j+1)=2;
-                    end
-                    if i<m&&j<n&&input_image(i+1,j+1)==0
-                        input_image(i+1,j+1)=2;
-                    end
+                    %if i>1&&j>1&&input_image(i-1,j-1)==0
+                    %    input_image(i-1,j-1)=2;
+                    %end
+                    %if i<m&&j>1&&input_image(i+1,j-1)==0
+                    %    input_image(i+1,j-1)=2;
+                    %end
+                    %if i>1&&j<n&&input_image(i-1,j+1)==0
+                    %    input_image(i-1,j+1)=2;
+                    %end
+                    %if i<m&&j<n&&input_image(i+1,j+1)==0
+                    %    input_image(i+1,j+1)=2;
+                    %end
                 end
             end
         end

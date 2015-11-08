@@ -20,27 +20,26 @@ function [ output_image ] = Erode( input_image, cycles )
                     if j<n
                         edges=[edges input_image(i,j+1)];
                     end
-                    if i>1&&j>1
-                        edges=[edges input_image(i-1,j-1)];
-                    end
-                    if i<m&&j>1
-                        edges=[edges input_image(i+1,j-1)];
-                    end
-                    if i>1&&j<n
-                        edges=[edges input_image(i-1,j+1)];
-                    end
-                    if i<m&&j<n
-                        edges=[edges input_image(i+1,j+1)];
-                    end
+                    %if i>1&&j>1
+                    %    edges=[edges input_image(i-1,j-1)];
+                    %end
+                    %if i<m&&j>1
+                    %    edges=[edges input_image(i+1,j-1)];
+                    %end
+                    %if i>1&&j<n
+                    %    edges=[edges input_image(i-1,j+1)];
+                    %end
+                    %if i<m&&j<n
+                    %    edges=[edges input_image(i+1,j+1)];
+                    %end
                     edge = 0;
-                        for h=1:length(edges)
-                            if edges(h) == 0
-                                edge = 1;
-                            end
+                    for h=1:length(edges)
+                        if edges(h) == 0
+                            edge = 1;
                         end
+                    end
                     if edge
                         input_image(i,j) = 2;
-                        edge = 0;
                     end
                 end
             end

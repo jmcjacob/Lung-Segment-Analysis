@@ -1,11 +1,10 @@
-function [ output_image ] = CirErode( input_image, structure_size )
+function [ output_image ] = CirErode( input_image, structure )
 
     input_image=uint8(input_image);
-    se = strel('disk', structure_size);
-    se = se.getnhood();
+    se = structure.getnhood();
     [sem, sen] = size(se);
     [m,n] = size(input_image);
-    padding = floor(structure_size/2);
+    padding = floor(sem/2);
     output_image = false(m,n);
     input_image = padarray(input_image,[padding,padding],'symmetric');
 
@@ -22,7 +21,7 @@ function [ output_image ] = CirErode( input_image, structure_size )
                 end
             end
             if full
-                output_image(i,j)=input_image(i, j);
+                output_image(i-padding,j-padding)=input_image(i, j);
             end
         end
     end

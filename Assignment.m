@@ -7,11 +7,13 @@ function [ output_image ] = Assignment( input )
     denoised_image = im2bw(i,level);
     lables = CCLabaling(denoised_image);
     hole_image = SelectValue(lables);
-    dilated_image = CirDilate(hole_image,6);
-    output_image = Erode(dilated_image,6);
+    se = strel('diamond',10);
+    dilated_image = CirDilate(hole_image,se);
+    output_image = CirErode(dilated_image,se);
     output_image = output_image - hole_image;
-    output_image = Erode(output_image, 1);
-    output_image = CirDilate(output_image, 1);
+    se = strel('diamond',1);
+    output_image = CirErode(output_image, se);
+    output_image = CirDilate(output_image, se);
     count = size(unique(CCLabaling(output_image)));
     disp(count(1)-1);
     

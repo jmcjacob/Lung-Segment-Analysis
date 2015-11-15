@@ -11,9 +11,7 @@ function [ output_image ] = Assignment( input )
     lables = CCLabaling(denoised_image);
     thing = SelectValue(lables, 1);
     thing = CirDilate(thing, strel('disk',1));
-    imshow(thing);
     denoised_image = denoised_image + thing;
-    figure, imshow(denoised_image);
     lables = CCLabaling(denoised_image);
     hole_image = SelectValue(lables,2) + SelectValue(lables,3);
     
@@ -28,7 +26,8 @@ function [ output_image ] = Assignment( input )
     disp(count(1)-1);
     
     %Task 4
-    edge_image = edge(circle_image);
+    edge_image = EdgeDetect(circle_image);
+    edge_image = CirDilate(edge_image,strel('disk',1));
     output_image = input_image + Binary2green(edge_image);
     figure;
     

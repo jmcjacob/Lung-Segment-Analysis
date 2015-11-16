@@ -1,5 +1,5 @@
 function [ output_image ] = Binary2Green( input_image )
-%Binary2Green Takes a logical image and replaces white with green.
+%BINARY2GREEN Takes a logical image and replaces white with green.
 %   Creates a new rgb image and replaces all instances of 1 with 255 in the
 %   second plane.
     

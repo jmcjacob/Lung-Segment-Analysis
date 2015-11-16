@@ -18,9 +18,9 @@ function [ output_image ] = Assignment( input )
     %Task 3
     se = strel('disk',15);
     dilated_image = Dilate(hole_image,se);
-    circle_image = CirErode(dilated_image,se);
+    circle_image = Erode(dilated_image,se);
     circle_image = circle_image - hole_image;
-    circle_image = CirErode(circle_image, strel('disk',1));
+    circle_image = Erode(circle_image, strel('disk',1));
     circle_image = Dilate(circle_image, strel('disk',1));
     count = size(unique(CCLabaling(circle_image)));
     disp(count(1)-1);

@@ -1,5 +1,5 @@
 function [ output_image ] = Dilate( input_image, structure )
-%Dilate Dilates a logical image based on the structure.
+%DILATE Dilates a binary image based on a sturturing element.
 %   Takes a logical image and a structuring element to dilate the image
 %   acording to the structung element.
 

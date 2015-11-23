@@ -5,8 +5,9 @@ function [ output_image ] = lungAnalysis( input )
     gray_image = rgb2gray(input_image);
     i = Medium(gray_image, 3);
     i = RemoveValue(i, 210);
+    i = imadjust(i,[0.1 0.65],[], 1.5);
     level = graythresh(i);
-    denoised_image = im2bw(i,level+0.06);
+    denoised_image = im2bw(i,level);
     %figure, imshow(denoised_image);
     
     %Task 2
@@ -14,12 +15,12 @@ function [ output_image ] = lungAnalysis( input )
     hole_image = SelectValue(lables,2) + SelectValue(lables,3);
     dilated_image = Dilate(hole_image,strel('disk',15));
     circle_image = Erode(dilated_image,strel('disk',15));
-    %figure, imshow(hole_image);
+    %figure, imshow(circle_image);
     
     %Task 3
     circle_image = circle_image - hole_image;
-    circle_image = Erode(circle_image, strel('disk',1));
-    circle_image = Dilate(circle_image, strel('disk',1));
+    circle_image = Erode(circle_image, strel('square',2));
+    circle_image = Dilate(circle_image, strel('square',2));  
     count = size(unique(CCLabaling(circle_image)));
     disp(count(1)-1);
     %figure, imshow(circle_image); 

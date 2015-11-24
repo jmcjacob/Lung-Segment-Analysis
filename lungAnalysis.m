@@ -5,9 +5,10 @@ function [ output_image ] = lungAnalysis( input )
     gray_image = rgb2gray(input_image);
     i = Medium(gray_image, 3);
     i = RemoveValue(i, 210);
-    i = imadjust(i,[0.1 0.65],[], 1.5);
+    i = imadjust(i,[0.16 0.5],[],1.1);
+    
     level = graythresh(i);
-    denoised_image = im2bw(i,level);
+    denoised_image = im2bw(i,level-0.025);
     %figure('name','Task 1'), imshow(denoised_image);
     
     %Task 2
@@ -19,8 +20,8 @@ function [ output_image ] = lungAnalysis( input )
     
     %Task 3
     circle_image = circle_image - hole_image;
-    circle_image = Erode(circle_image, strel('square',2));
-    circle_image = Dilate(circle_image, strel('square',2));  
+    circle_image = Erode(circle_image, strel('disk',1));
+    circle_image = Dilate(circle_image, strel('disk',1));
     count = size(unique(CCLabaling(circle_image)));
     disp(count(1)-1);
     %figure('name', 'Task 3'), imshow(circle_image); 

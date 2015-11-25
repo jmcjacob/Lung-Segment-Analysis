@@ -1,4 +1,4 @@
-function [ output_image ] = lungAnalysis( input )
+function [] = lungAnalysis( input )
 
     %Task 1
     input_image = imread(input);
@@ -13,7 +13,7 @@ function [ output_image ] = lungAnalysis( input )
     %figure('name','Task 1'), imshow(denoised_image), title('Task 1');
     
     %Task 2
-    lables = CCLabaling(denoised_image);
+    lables = bwlabel(~denoised_image);
     hole_image = SelectValue(lables,2) + SelectValue(lables,3);
     dilated_image = Dilate(hole_image,strel('disk',15));
     circle_image = Erode(dilated_image,strel('disk',15));
@@ -23,14 +23,18 @@ function [ output_image ] = lungAnalysis( input )
     circle_image = circle_image - hole_image;
     circle_image = Erode(circle_image, strel('disk',1));
     circle_image = Dilate(circle_image, strel('disk',1));
-    count = size(unique(CCLabaling(circle_image)));
-    disp(count(1)-1);
-    edge_image = EdgeDetect(circle_image);
-    edge_image = Dilate(edge_image,strel('disk',1));
-    output_image = input_image + Binary2Green(edge_image);
-    figure('name', 'Task 3'), imshow(output_image), title('Task 3');
+    [labels,count] = bwlabel(circle_image);
+    disp(count);
+    dots = regionprops(labels, 'centroid');
+    center = cat(1, dots.Centroid);
+    figure('name', 'Task 3'), imshow(input_image), title('Task 3');
+    hold on
+    plot(center(:,1),center(:,2), 'r*')
+    hold off
     
     %Task 4
     figure('name', 'Task 4'),
-    imshow(logical2rgb(circle_image)+Binary2Green(edge_image)), title('Task 4');
+    edge_image = EdgeDetect(circle_image);
+    edge_image = Dilate(edge_image,strel('disk',1));
+    %imshow(logical2rgb(circle_image)+Binary2Green(edge_image)), title('Task 4');
 end
